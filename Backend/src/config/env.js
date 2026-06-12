@@ -14,7 +14,7 @@ export const env = {
   CLOUDINARY_NAME: process.env.CLOUDINARY_NAME,
   CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
-  CORS_ORIGIN: process.env.CORS_ORIGIN || "http://localhost:5173",
+  CORS_ORIGIN: process.env.CORS_ORIGIN || "https://hostel-complaint-management-system-cpgt.onrender.com",
   RATE_LIMIT_WINDOW_MS: toNumber(
     process.env.RATE_LIMIT_WINDOW_MS,
     15 * 60 * 1000,
