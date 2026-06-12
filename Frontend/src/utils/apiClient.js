@@ -1,7 +1,13 @@
 import axios from "axios";
 
+const envApiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://hostel-complaint-management-system-cpgt.onrender.com/api/v1";
+  envApiBaseUrl ||
+  (typeof window !== "undefined" &&
+  window.location.hostname !== "localhost" &&
+  window.location.hostname !== "127.0.0.1"
+    ? "https://hostel-complaint-management-system-cpgt.onrender.com/api/v1"
+    : "/api/v1");
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
