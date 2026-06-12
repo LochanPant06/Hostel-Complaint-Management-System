@@ -1,17 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const normalizeApiUrl = (url) => {
-  if (!url) return url;
-  let normalized = url.trim().replace(/\/+$/, "");
-  if (!normalized.endsWith("/api/v1")) {
-    normalized += "/api/v1";
-  }
-  return normalized;
-};
-
-const API_BASE_URL =
-  normalizeApiUrl(import.meta.env.VITE_API_BASE_URL) || "/api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api/v1";
 
 export const useAuthStore = create(
   persist(
@@ -53,12 +43,7 @@ export const useAuthStore = create(
             );
           }
 
-          const text = await response.text();
-          const data = text ? JSON.parse(text) : null;
-          if (!data) {
-            throw new Error("Empty response from server");
-          }
-
+          const data = await response.json();
           set({
             user: data.data.user,
             accessToken: data.data.accessToken,
@@ -70,7 +55,7 @@ export const useAuthStore = create(
           localStorage.setItem("refreshToken", data.data.refreshToken);
           localStorage.setItem("user", JSON.stringify(data.data.user));
 
-          return data;
+          return data;zz
         } catch (error) {
           set({ error: error.message, isLoading: false });
           throw error;
@@ -93,12 +78,7 @@ export const useAuthStore = create(
             );
           }
 
-          const text = await response.text();
-          const data = text ? JSON.parse(text) : null;
-          if (!data) {
-            throw new Error("Empty response from server");
-          }
-
+          const data = await response.json();
           set({
             user: data.data.user,
             accessToken: data.data.accessToken,
