@@ -1,12 +1,25 @@
 import axios from "axios";
 
 const envApiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
+const defaultBackendApiUrl =
+  "https://hostel-complaint-management-system-cpgt.onrender.com/api/v1";
+
+const normalizeBaseUrl = (url) => {
+  if (!url) return url;
+  let normalized = url.trim().replace(/\/+$/, "");
+  if (!normalized.endsWith("/api/v1")) {
+    normalized += "/api/v1";
+  }
+  return normalized;
+};
+
 const API_BASE_URL =
-  envApiBaseUrl ||
+  normalizeBaseUrl(envApiBaseUrl) ||
   (typeof window !== "undefined" &&
   window.location.hostname !== "localhost" &&
   window.location.hostname !== "127.0.0.1"
-    ? "https://hostel-complaint-management-system-cpgt.onrender.com/api/v1"
+    ? defaultBackendApiUrl
     : "/api/v1");
 
 const apiClient = axios.create({

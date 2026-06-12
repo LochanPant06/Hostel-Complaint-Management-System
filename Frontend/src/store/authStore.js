@@ -1,7 +1,17 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api/v1";
+const normalizeApiUrl = (url) => {
+  if (!url) return url;
+  let normalized = url.trim().replace(/\/+$/, "");
+  if (!normalized.endsWith("/api/v1")) {
+    normalized += "/api/v1";
+  }
+  return normalized;
+};
+
+const API_BASE_URL =
+  normalizeApiUrl(import.meta.env.VITE_API_BASE_URL) || "/api/v1";
 
 export const useAuthStore = create(
   persist(
