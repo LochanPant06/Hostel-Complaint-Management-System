@@ -43,7 +43,12 @@ export const useAuthStore = create(
             );
           }
 
-          const data = await response.json();
+          const text = await response.text();
+          const data = text ? JSON.parse(text) : null;
+          if (!data) {
+            throw new Error("Empty response from server");
+          }
+
           set({
             user: data.data.user,
             accessToken: data.data.accessToken,
@@ -78,7 +83,12 @@ export const useAuthStore = create(
             );
           }
 
-          const data = await response.json();
+          const text = await response.text();
+          const data = text ? JSON.parse(text) : null;
+          if (!data) {
+            throw new Error("Empty response from server");
+          }
+
           set({
             user: data.data.user,
             accessToken: data.data.accessToken,
